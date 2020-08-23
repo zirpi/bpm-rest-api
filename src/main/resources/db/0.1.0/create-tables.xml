@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+<changeSet author="John" id="1439225004329-1">
+    <createTable tableName="LOAN_APPLICATION">
+        <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="workflow_instance_id" type="VARCHAR(256)" />
+        <column name="customer" type="VARCHAR(256)" />
+        <column name="customer_name" type="VARCHAR(256)" />
+        <column name="large_company" type="BIT(1)" />
+        <column name="amount" type="NUMBER(19,4)" />
+        <column name="final_decision" type="VARCHAR(128)"/>
+        <column name="created" type="DATETIME" />
+        <column name="current_step" type="VARCHAR(128)" />
+        <column name="variables" type="VARCHAR(1024)" />
+    </createTable>
+    <createTable tableName="LOAN_APPLICATION_STEP">
+        <column name="id" autoIncrement="true" type="BIGINT">
+            <constraints primaryKey="true" />
+        </column>
+        <column name="application_id"  type="BIGINT" />
+        <column name="name" type="VARCHAR(128)" />
+        <column name="performed" type="DATETIME" />
+        <column name="performed_by" type="VARCHAR(128)" />
+        <column name="variables" type="VARCHAR(1024)" />
+    </createTable>
+</changeSet>
+
+</databaseChangeLog>
