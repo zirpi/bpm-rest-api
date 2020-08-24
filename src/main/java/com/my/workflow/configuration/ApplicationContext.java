@@ -32,7 +32,9 @@ public class ApplicationContext {
     @Bean
     public EnterApprovedStateListener enterApprovedStateListener() { return new EnterApprovedStateListener(); }
 
-
     @Bean
     public EnterRejectedStateListener enterRejectedStateListener() { return new EnterRejectedStateListener(); }
+
+    @Bean
+    public LoadDataExternalCompletedListener loadDataExternalCompletedListener() { return new LoadDataExternalCompletedListener(); }
 }

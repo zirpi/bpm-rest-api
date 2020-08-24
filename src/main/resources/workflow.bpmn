@@ -25,6 +25,9 @@
       <bpmn:outgoing>Flow_0nw3qz8</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:serviceTask id="Activity_009acyg" name="LoadDataFromExternalService" camunda:type="external" camunda:topic="LoadAdditionalData">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${loadDataExternalCompletedListener}" event="end" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0osaghr</bpmn:incoming>
       <bpmn:outgoing>Flow_0qn106n</bpmn:outgoing>
     </bpmn:serviceTask>

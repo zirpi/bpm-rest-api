@@ -7,6 +7,7 @@ import com.my.workflow.service.LoanApplicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,14 @@ public class LoanApplicationController {
         return app;
     }
 
+    @PostMapping("/complete/{id}")
+    public void completeTask(@PathVariable Long id, @RequestBody Map<String, Object> variables){
+        final LoanApplication application = loanApplicationService.getById(id);
+        final TaskService taskService = ProcessEngines.getDefaultProcessEngine().getTaskService();
+        final String taskId = getTaskId(taskService, application.getId().toString());
+        taskService.complete(taskId, variables);
+    }
+
     @PostMapping("/addtask")
     public String addNewTask(@RequestBody LoanApplicationRequest request){
         try {
@@ -87,7 +96,8 @@ public class LoanApplicationController {
         var taskRef = "";
         if (tasks.size() > 0){
             // TODO: may one business case have several active tasks ?
-            taskRef = tasks.get(0).getId();
+            final Task task = tasks.get(0);
+            taskRef = task.getId();
         }
         return taskRef;
     }
